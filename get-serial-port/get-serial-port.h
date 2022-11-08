@@ -20,7 +20,7 @@ class GetSerialPort {
 		GetSerialPort();
 		~GetSerialPort();
 		//Get Serial Communication Com port.
-		std::string getCOMPort();
+		int getCOMPort();
 };
 
 

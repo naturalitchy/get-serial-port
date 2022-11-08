@@ -10,7 +10,7 @@ GetSerialPort::~GetSerialPort() {
 
 }
 
-std::string GetSerialPort::getCOMPort() {
+int GetSerialPort::getCOMPort() {
 
 	HRESULT hres;
 
@@ -124,7 +124,7 @@ std::string GetSerialPort::getCOMPort() {
 		pSvc->Release();
 		pLoc->Release();
 		CoUninitialize();
-		return "";               // Program has failed.
+		return 0;               // Program has failed.
 	} else {
 		IWbemClassObject *pclsObj;
 		ULONG uReturn = 0;
@@ -149,15 +149,14 @@ std::string GetSerialPort::getCOMPort() {
 				printf(" > find Success! \n");
 			}
 			printf("num = %d \n", num);
-			StaticVariable::autoComPortName = str.c_str();
+			StaticVariable::autoComPortName = str;
 
 			std::cout << "StaticVariable::comPortName(getSerialPort) = " << StaticVariable::autoComPortName << std::endl;
 			VariantClear(&vtProp);
 			pclsObj->Release();
 			pclsObj = NULL;
 
-			//return 0;
-			return str;
+			return 1;
 		}
 	}
 

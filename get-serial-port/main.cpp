@@ -3,16 +3,15 @@
 #include "get-serial-port.h"
 #include <string>
 
-const char* StaticVariable::autoComPortName = "";
+std::string StaticVariable::autoComPortName = "";
 
 int main() {
 	
 	GetSerialPort getSerialPort;
-	//getSerialPort.getCOMPort();
-	std::string ss = getSerialPort.getCOMPort();
+	int num = getSerialPort.getCOMPort();
 
-	std::cout << "string (main) = " << ss << std::endl;
 	std::cout << "static (main) = " << StaticVariable::autoComPortName << std::endl;
+	std::cout << "result (main) = " << num << std::endl;
 
 	return 0;
 }
