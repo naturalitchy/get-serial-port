@@ -1,6 +1,5 @@
 #include "get-serial-port.h"
 
-const char* StaticVariable::autoComPortName = "";
 
 GetSerialPort::GetSerialPort()
 	: portName() {
@@ -11,7 +10,7 @@ GetSerialPort::~GetSerialPort() {
 
 }
 
-std::string GetSerialPort::getCOMPort(std::string &portCh) {
+std::string GetSerialPort::getCOMPort() {
 
 	HRESULT hres;
 
@@ -125,7 +124,7 @@ std::string GetSerialPort::getCOMPort(std::string &portCh) {
 		pSvc->Release();
 		pLoc->Release();
 		CoUninitialize();
-		return 0;               // Program has failed.
+		return "";               // Program has failed.
 	} else {
 		IWbemClassObject *pclsObj;
 		ULONG uReturn = 0;
@@ -150,17 +149,16 @@ std::string GetSerialPort::getCOMPort(std::string &portCh) {
 				printf(" > find Success! \n");
 			}
 			printf("num = %d \n", num);
-			portCh = str;
 			StaticVariable::autoComPortName = str.c_str();
 
 			std::cout << "StaticVariable::comPortName(getSerialPort) = " << StaticVariable::autoComPortName << std::endl;
-
 			VariantClear(&vtProp);
 			pclsObj->Release();
 			pclsObj = NULL;
-		}
 
-		return portCh;
+			//return 0;
+			return str;
+		}
 	}
 
 	// Cleanup
@@ -170,4 +168,6 @@ std::string GetSerialPort::getCOMPort(std::string &portCh) {
 	pEnumerator->Release();
 
 	CoUninitialize();
+
+	
 }

@@ -1,19 +1,18 @@
 #define no_init_all
 
 #include "get-serial-port.h"
-#include <iostream>
+#include <string>
 
-
+const char* StaticVariable::autoComPortName = "";
 
 int main() {
 	
 	GetSerialPort getSerialPort;
-	std::string portCh = "";
-	printf("portCh(main) = %s \n", portCh);
-	getSerialPort.getCOMPort(portCh);
-	std::cout << "Main Start @@@@@@@@@@@@@@@@@@@@@@@@@ \n";
-	std::cout << "StaticVariable::autoComPortName(main) = " << StaticVariable::autoComPortName << std::endl;
-	printf("portCh(main) = %s \n", portCh);
+	//getSerialPort.getCOMPort();
+	std::string ss = getSerialPort.getCOMPort();
+
+	std::cout << "string (main) = " << ss << std::endl;
+	std::cout << "static (main) = " << StaticVariable::autoComPortName << std::endl;
 
 	return 0;
 }
