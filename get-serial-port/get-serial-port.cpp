@@ -12,9 +12,15 @@ GetSerialPort::~GetSerialPort() {
 
 int GetSerialPort::getCOMPort() {
 
-	HRESULT hres;
+	HRESULT hres;				// 오류 또는 경고를 설명하는 데 사용되는 32비트 값입니다.
 
 	// Initialize COM.
+	/*
+	호출 스레드에서 사용할 COM 라이브러리를 초기화하고 스레드의 동시성 모델을 설정하며 필요한 경우 스레드에 대한 새 아파트를 만듭니다.
+	Windows 런타임 API를 사용하거나 COM 및 Windows 런타임 구성 요소를 모두 사용하려는 경우 
+	Windows::Foundation::Initialize를 호출하여 CoInitializeEx 대신 스레드를 초기화해야 합니다. 
+	Windows::Foundation::Initialize는 COM 구성 요소에 사용하기에 충분합니다.
+	*/
 	hres = CoInitializeEx(0, COINIT_MULTITHREADED);
 	if (FAILED(hres)) {
 		std::cout << "Failed to initialize COM library. "
@@ -144,11 +150,11 @@ int GetSerialPort::getCOMPort() {
 			assert(vtProp.bstrVal != nullptr);
 			std::wstring wstr(vtProp.bstrVal, SysStringLen(vtProp.bstrVal));
 			std::string str(wstr.begin(), wstr.end());
-			int num = str.find("Arduino Mega 2560");
-			if (num != -1) {
+			int findNum = str.find("Arduino Mega 2560");
+			if (findNum != -1) {
 				printf(" > find Success! \n");
 			}
-			printf("num = %d \n", num);
+			printf("findNum = %d \n", findNum);
 			StaticVariable::autoComPortName = str;
 
 			std::cout << "StaticVariable::comPortName(getSerialPort) = " << StaticVariable::autoComPortName << std::endl;

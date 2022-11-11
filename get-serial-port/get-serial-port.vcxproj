@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="connect-serial.h" />
     <ClInclude Include="get-serial-port.h" />
     <ClInclude Include="static-variable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="connect-serial.cpp" />
     <ClCompile Include="get-serial-port.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
